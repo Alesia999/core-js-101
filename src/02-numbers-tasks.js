@@ -144,7 +144,7 @@ function getLastDigit(value) {
  * '-525.5'     => -525.5
  */
 function parseNumberFromString(value) {
-  return Number.parseInt(value, 10);
+  return Number(value);
 }
 
 /**
@@ -203,15 +203,10 @@ function roundToPowerOfTen(num, pow) {
  *   17 => true
  */
 function isPrime(n) {
-  if (n <= 1 && n <= 3 && n % 2 !== 0 && n % 3 !== 0) {
-    return true;
-  }
-  let i = 5;
-  while (i * i <= n) {
-    if (n % i === 0 || n % (i + 2) === 0) {
+  for (let i = 2; i < n; i += 1) {
+    if (n % i === 0) {
       return false;
     }
-    i += 6;
   }
   return true;
 }
@@ -232,10 +227,7 @@ function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-  if (Number.isNaN(value) || Number(value) !== null || Number(value) !== undefined) {
-    return Number(value);
-  }
-  return def;
+  return Number.isNaN(parseInt(value, 10)) ? def : parseInt(value, 10);
 }
 
 module.exports = {
